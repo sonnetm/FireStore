@@ -6,6 +6,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import CoreLocation
 
 var customActivityIndicator = UIActivityIndicatorView()
 var tripHandler = UInt()
@@ -18,6 +19,22 @@ var startTimeHandler = UInt()
 var lastUpdatedHandler = UInt()
 
 class Utility {
+  
+  class func getHeadingForDirection(fromCoordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D) -> Float {
+    let fromLat = Double(fromCoordinate.latitude).degreesToRadians
+    let fromLng = Double(fromCoordinate.longitude).degreesToRadians
+    let toLat   = Double(toCoordinate.latitude).degreesToRadians
+    let toLng   = Double(toCoordinate.longitude).degreesToRadians
+    
+    let degree = Float(atan2(sin(toLng-fromLng)*cos(toLat), cos(fromLat)*sin(toLat)-sin(fromLat)*cos(toLat)*cos(toLng-fromLng))).radiansToDegrees
+    
+    if degree >= 0 {
+      return degree
+    } else {
+      return 360+degree
+    }
+  }
+  
 
  /// To check the reachability status. Will return 'true' if network is reachable.
   class  var isConnectedToInternet: Bool {
@@ -214,4 +231,9 @@ extension String {
       return nil
     }
   }
+}
+
+extension FloatingPoint {
+  var degreesToRadians: Self { return self * .pi / 180 }
+  var radiansToDegrees: Self { return self * 180 / .pi }
 }

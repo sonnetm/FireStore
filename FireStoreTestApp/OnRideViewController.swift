@@ -12,6 +12,7 @@ import Reachability
 import GoogleMaps
 import GooglePlaces
 
+
 class OnRideViewController: CCabBaseViewController {
   @IBOutlet weak var mapView: GMSMapView!
   var db: Firestore!
@@ -23,23 +24,26 @@ class OnRideViewController: CCabBaseViewController {
   var coordinatesArray: [[String:String]] = []
   var vehicleDataDictionary: [String : Any] = ["vehicleId": "000", "rideId": "000","coordinates": [["latitude":"000", "longitude":"000","rideStatus": AppSyncRideStatus.accepted.statusValue]]]
   var carMarker = GMSMarker()
+  var prevCoordinate: CLLocationCoordinate2D?
   
   @IBOutlet weak var cancelRideButton: UIButton!
   @IBOutlet weak var latitudeLabel: UILabel!
   @IBOutlet weak var longitudeLabel: UILabel!
   
   override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
     self.setBackButtonNavigationBar(title: rideStatus, isBackButtonRequired: false, controller: self)
     self.addShadow()
     initialMapSetUp()
+    prevCoordinate = nil
     if(rideStatus == AppSyncRideStatus.accepted.statusValue || rideStatus == AppSyncRideStatus.driverArrived.statusValue || rideStatus == AppSyncRideStatus.otpVerified.statusValue) {
       self.cancelRideButton.isHidden = false
     }
     else if(rideStatus == AppSyncRideStatus.onride.statusValue) {
       self.cancelRideButton.isHidden = true
     }
-    }
+    setupMarkers()
+  }
   
   override func viewWillAppear(_ animated: Bool) {
     // [START setup]
@@ -57,7 +61,7 @@ class OnRideViewController: CCabBaseViewController {
       print("could not start reachability notifier")
     }
   }
- 
+  
   @objc private func applicationWillTerminate() {
     // Do whatever you want, for example update your view.
     vehicleDataDictionary = ["vehicleId": vehicleId, "rideId": globalRideReferenceId,"rideStatus": self.rideStatus,"coordinates": coordinatesArray]
@@ -86,28 +90,28 @@ class OnRideViewController: CCabBaseViewController {
   
   func writeString(toFile dictionary:[String : Any]) {
     do {
-    let jsonData = try JSONSerialization.data(withJSONObject: dictionary)
-    let aString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
-    // Build the path, and create if needed.
-    let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    let timestamp = NSDate().timeIntervalSince1970
-    let fileName = "\(timestamp).json"
-    
-    let fileAtPath = URL(fileURLWithPath: filePath).appendingPathComponent(fileName).path
-
+      let jsonData = try JSONSerialization.data(withJSONObject: dictionary)
+      let aString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
+      // Build the path, and create if needed.
+      let filePath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+      let timestamp = NSDate().timeIntervalSince1970
+      let fileName = "\(timestamp).json"
+      
+      let fileAtPath = URL(fileURLWithPath: filePath).appendingPathComponent(fileName).path
+      
       let fileManager = FileManager.default
       if fileManager.fileExists(atPath: fileAtPath) {
         print("FILE AVAILABLE")
       } else {
         FileManager.default.createFile(atPath: fileAtPath, contents: nil, attributes: nil)
       }
-    //writing
-    do {
-      try aString?.write(toFile: fileAtPath, atomically: false, encoding: String.Encoding.utf8.rawValue)
-    }
-    catch let error {
-      print(error.localizedDescription)
-    }
+      //writing
+      do {
+        try aString?.write(toFile: fileAtPath, atomically: false, encoding: String.Encoding.utf8.rawValue)
+      }
+      catch let error {
+        print(error.localizedDescription)
+      }
     }
     catch let error {
       print(error.localizedDescription)
@@ -130,43 +134,43 @@ class OnRideViewController: CCabBaseViewController {
   private func listenRideStatusCollection() {
     // [START listen_document_local]
     self.stopRidesCollectionListener()
-   listenerRidesNode = db.collection("Rides").document(globalRideReferenceId)
+    listenerRidesNode = db.collection("Rides").document(globalRideReferenceId)
       .addSnapshotListener(includeMetadataChanges: true) { documentSnapshot, error in
         guard let document = documentSnapshot else {
           print("Error fetching document: \(error!)")
           return
         }
         if !document.metadata.isFromCache {
-        guard let data = document.data() else {
-          self.stopRidesCollectionListener()
-          self.stopVehiclesCollectionListener()
-          if self.rideStatus == AppSyncRideStatus.onride.statusValue ||  self.rideStatus == AppSyncRideStatus.endRide.statusValue ||  self.rideStatus == AppSyncRideStatus.paymentCollected.statusValue  {
-            self.cancelRideButton.isHidden = true
-            self.showRideCompletedAlert()
-//            self.rideCompletionLambda()
+          guard let data = document.data() else {
+            self.stopRidesCollectionListener()
+            self.stopVehiclesCollectionListener()
+            if self.rideStatus == AppSyncRideStatus.onride.statusValue ||  self.rideStatus == AppSyncRideStatus.endRide.statusValue ||  self.rideStatus == AppSyncRideStatus.paymentCollected.statusValue  {
+              self.cancelRideButton.isHidden = true
+              self.showRideCompletedAlert()
+              //            self.rideCompletionLambda()
+            }
+            else {
+              self.navigationController?.popToRootViewController(animated: true)
+            }
+            print("Document data was empty.")
+            return
           }
-          else {
-          self.navigationController?.popToRootViewController(animated: true)
+          print("Current data: \(data)")
+          if let rideStatus: String = data["rideStatus"] as? String {
+            self.rideStatus = rideStatus
+            if (rideStatus == AppSyncRideStatus.new.statusValue) {
+              self.navigationController?.popViewController(animated: true)
+            }
+            else if(rideStatus == AppSyncRideStatus.accepted.statusValue || rideStatus == AppSyncRideStatus.driverArrived.statusValue || rideStatus == AppSyncRideStatus.otpVerified.statusValue) {
+              self.cancelRideButton.isHidden = false
+            }
+            else if(rideStatus == AppSyncRideStatus.onride.statusValue) {
+              self.cancelRideButton.isHidden = true
+            }
+            self.navigationItem.title = rideStatus
+            self.coordinatesArray.append(["latitude":self.latitudeLabel.text ?? "000","longitude":self.longitudeLabel.text ?? "000","rideStatus": self.rideStatus])
           }
-          print("Document data was empty.")
-          return
         }
-        print("Current data: \(data)")
-        if let rideStatus: String = data["rideStatus"] as? String {
-          self.rideStatus = rideStatus
-          if (rideStatus == AppSyncRideStatus.new.statusValue) {
-            self.navigationController?.popViewController(animated: true)
-          }
-         else if(rideStatus == AppSyncRideStatus.accepted.statusValue || rideStatus == AppSyncRideStatus.driverArrived.statusValue || rideStatus == AppSyncRideStatus.otpVerified.statusValue) {
-            self.cancelRideButton.isHidden = false
-          }
-          else if(rideStatus == AppSyncRideStatus.onride.statusValue) {
-            self.cancelRideButton.isHidden = true
-          }
-          self.navigationItem.title = rideStatus
-        self.coordinatesArray.append(["latitude":self.latitudeLabel.text ?? "000","longitude":self.longitudeLabel.text ?? "000","rideStatus": self.rideStatus])
-        }
-    }
     }
     // [END listen_document_local]
   }
@@ -174,88 +178,96 @@ class OnRideViewController: CCabBaseViewController {
   private func listenDriverCoordinates() {
     // [START listen_document_local]
     self.stopVehiclesCollectionListener()
-   listenerVehiclesNode = db.collection("VehicleLocations").document(vehicleId)
+    listenerVehiclesNode = db.collection("VehicleLocations").document(vehicleId)
       .addSnapshotListener(includeMetadataChanges: true) { documentSnapshot, error in
         guard let document = documentSnapshot else {
           print("Error fetching document: \(error!)")
           return
         }
         if !document.metadata.isFromCache {
-        guard let data = document.data() else {
-           print("Document data was empty.")
-          return
-        }
-        print("Current data: \(data)")
-        if let latitude: String = data["latitude"] as? String, let longitude: String = data["longitude"] as? String {
-        self.coordinatesArray.append(["latitude":latitude,"longitude":longitude,"rideStatus": self.rideStatus])
-         self.latitudeLabel.text = "\(latitude)"
-         self.longitudeLabel.text = "\(longitude)"
-         self.setupCamera(currentlat: latitude, currentLong: longitude)
+          guard let data = document.data() else {
+            print("Document data was empty.")
+            return
+          }
+          print("Current data: \(data)")
+          if let latitude: String = data["latitude"] as? String, let longitude: String = data["longitude"] as? String {
+            self.coordinatesArray.append(["latitude":latitude,"longitude":longitude,"rideStatus": self.rideStatus])
+            self.latitudeLabel.text = "\(latitude)"
+            self.longitudeLabel.text = "\(longitude)"
+            let newCoordinate =  CLLocationCoordinate2DMake(Double(latitude) ?? 0.0,Double(longitude) ?? 0.0)
+            if self.prevCoordinate == nil {
+              self.prevCoordinate = newCoordinate
+            }
+            let bearing = Utility.getHeadingForDirection(fromCoordinate: self.prevCoordinate ?? newCoordinate, toCoordinate: newCoordinate)
+            self.carMovementAction(self.carMarker, withOldCoordinate: self.prevCoordinate ?? newCoordinate, andNewCoordinate: newCoordinate, inMapview: self.mapView, withBearing: bearing)
+            self.setupCamera(currentlat: latitude, currentLong: longitude)
+            self.prevCoordinate = newCoordinate
+          //self.carMarker.position = CLLocationCoordinate2DMake(Double(latitude) ?? 0.0, Double(longitude) ?? 0.0)
+          }
         }
     }
-  }
     // [END listen_document_local]
   }
   
-//  func rideDocumentDeleteListener() {
-//    db.collection("Rides").document(CCabConstants.rideId)
-//      .addSnapshotListener { documentSnapshot, error in
-//        guard let document = documentSnapshot else {
-//          print("Error fetching document: \(error!)")
-//          return
-//        }
-//        guard let data = document.data() else {
-//          self.navigationController?.popToRootViewController(animated: true)
-//          print("Document data was empty.")
-//          return
-//        }
-//        print("Current data: \(data)")
-//    }
-//  }
+  //  func rideDocumentDeleteListener() {
+  //    db.collection("Rides").document(CCabConstants.rideId)
+  //      .addSnapshotListener { documentSnapshot, error in
+  //        guard let document = documentSnapshot else {
+  //          print("Error fetching document: \(error!)")
+  //          return
+  //        }
+  //        guard let data = document.data() else {
+  //          self.navigationController?.popToRootViewController(animated: true)
+  //          print("Document data was empty.")
+  //          return
+  //        }
+  //        print("Current data: \(data)")
+  //    }
+  //  }
   
-//  func deletionListener() {
-//   db.collection("Rides").document(CCabConstants.rideId) .collection("rideStatusCollection")
-//      .addSnapshotListener { querySnapshot, error in
-//        guard let snapshot = querySnapshot else {
-//          print("Error fetching snapshots: \(error!)")
-//          return
-//        }
-//        snapshot.documentChanges.forEach { diff in
-//          if (diff.type == .added) {
-//            print("New city: \(diff.document.data())")
-//          }
-//          if (diff.type == .modified) {
-//            print("Modified city: \(diff.document.data())")
-//          }
-//          if (diff.type == .removed) {
-//            print("Removed city: \(diff.document.data())")
-//          }
-//        }
-//    }
-//  }
+  //  func deletionListener() {
+  //   db.collection("Rides").document(CCabConstants.rideId) .collection("rideStatusCollection")
+  //      .addSnapshotListener { querySnapshot, error in
+  //        guard let snapshot = querySnapshot else {
+  //          print("Error fetching snapshots: \(error!)")
+  //          return
+  //        }
+  //        snapshot.documentChanges.forEach { diff in
+  //          if (diff.type == .added) {
+  //            print("New city: \(diff.document.data())")
+  //          }
+  //          if (diff.type == .modified) {
+  //            print("Modified city: \(diff.document.data())")
+  //          }
+  //          if (diff.type == .removed) {
+  //            print("Removed city: \(diff.document.data())")
+  //          }
+  //        }
+  //    }
+  //  }
   
   @IBAction func cancelButtonAction(_ sender: Any) {
     self.cancelRideFromPax()
     //self.deleteDocument()
   }
   
-//  private func deleteDocument() {
-//    // [START delete_document]
-//    db.collection("Vehicles").document("1174647404").delete() { err in
-//      if let err = err {
-//        print("Error removing document: \(err)")
-//      } else {
-//        print("Document successfully removed!")
-//      }
-//    }
-//    // [END delete_document]
-//  }
+  //  private func deleteDocument() {
+  //    // [START delete_document]
+  //    db.collection("Vehicles").document("1174647404").delete() { err in
+  //      if let err = err {
+  //        print("Error removing document: \(err)")
+  //      } else {
+  //        print("Document successfully removed!")
+  //      }
+  //    }
+  //    // [END delete_document]
+  //  }
   
   func showRideCompletedAlert() {
     let alert = UIAlertController(title: "Ride Completed", message: "Your ride completed successfully.", preferredStyle: UIAlertController.Style.alert)
     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { _ -> Void in
       // Put your code here
-//      self.deleteDocument()
+      //      self.deleteDocument()
       self.navigationController?.popToRootViewController(animated: true)
       alert.dismiss(animated: true, completion: nil)
     })
@@ -305,25 +317,25 @@ class OnRideViewController: CCabBaseViewController {
         self.toastMessage(error ?? "", isKeyboardInView: false)
       } else {
         print("nearByData ---", data!)
-//        let dataValue = data as? String
-//        print("near by data--\(String(describing: dataValue))")
-//        if let data = dataValue?.data(using: String.Encoding.utf8) {
-          self.cancelRideButton.isHidden = true
-          self.showRideCompletedAlert()
-//        }
+        //        let dataValue = data as? String
+        //        print("near by data--\(String(describing: dataValue))")
+        //        if let data = dataValue?.data(using: String.Encoding.utf8) {
+        self.cancelRideButton.isHidden = true
+        self.showRideCompletedAlert()
+        //        }
       }
     }
   }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  /*
+   // MARK: - Navigation
+   
+   // In a storyboard-based application, you will often want to do a little preparation before navigation
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   // Get the new view controller using segue.destination.
+   // Pass the selected object to the new view controller.
+   }
+   */
+  
 }
 
 extension OnRideViewController {
@@ -343,6 +355,53 @@ extension OnRideViewController {
   }
   
   func setupMarkers() {
-    
+    carMarker.iconView = nil
+    carMarker.icon = #imageLiteral(resourceName: "Car_on_map")
+    carMarker.map = mapView
+    carMarker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+    carMarker.rotation = CLLocationDirection(0)
+  }
+  
+  func getHeadingForDirection(fromCoordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D) -> Float {
+    let fromLat = Double(fromCoordinate.latitude).degreesToRadians
+    let fromLng = Double(fromCoordinate.longitude).degreesToRadians
+    let toLat   = Double(toCoordinate.latitude).degreesToRadians
+    let toLng   = Double(toCoordinate.longitude).degreesToRadians
+    let degree = Float(atan2(sin(toLng-fromLng)*cos(toLat), cos(fromLat)*sin(toLat)-sin(fromLat)*cos(toLat)*cos(toLng-fromLng))).radiansToDegrees
+    if degree >= 0 {
+      return degree
+    } else {
+      return 360+degree
+    }
+  }
+  
+  //Call this function to move the car according to bearing and location coordinates.
+  func carMovementAction(_ marker: GMSMarker, withOldCoordinate oldCoordinate: CLLocationCoordinate2D, andNewCoordinate newCoordinate: CLLocationCoordinate2D,
+                         inMapview mapView: GMSMapView, withBearing newBearing: Float) {
+    print("car moving action")
+    marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+    let calBearing: Float = getHeadingForDirection(fromCoordinate: oldCoordinate, toCoordinate: newCoordinate)
+    marker.rotation = CLLocationDegrees(calBearing)
+    marker.position = oldCoordinate
+    marker.isTappable = false
+    CATransaction.begin()
+    CATransaction.setValue(Float(2.0), forKey: kCATransactionAnimationDuration)
+    CATransaction.setCompletionBlock({() -> Void in
+      if newBearing != 0 {
+        marker.rotation = CLLocationDegrees(calBearing)
+      } else {
+        marker.rotation = CLLocationDegrees(calBearing)
+      }
+    })
+    marker.position = newCoordinate
+    marker.map = mapView
+    marker.rotation = CLLocationDegrees(calBearing)
+    CATransaction.commit()
+    let visibleRegion: GMSVisibleRegion = mapView.projection.visibleRegion()
+    let bounds = GMSCoordinateBounds(coordinate: visibleRegion.nearLeft, coordinate: visibleRegion.farRight)
+    if !bounds.contains(marker.position) {
+      let updatedCamera = GMSCameraUpdate.setTarget(marker.position, zoom: mapView.camera.zoom)
+      mapView.animate(with: updatedCamera)
+    }
   }
 }
