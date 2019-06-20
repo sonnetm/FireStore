@@ -15,6 +15,24 @@
 		320A4396227194AF005131E7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 320A4394227194AF005131E7 /* LaunchScreen.storyboard */; };
 		320A43A1227194AF005131E7 /* FireStoreTestAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43A0227194AF005131E7 /* FireStoreTestAppTests.swift */; };
 		320A43AC227194AF005131E7 /* FireStoreTestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43AB227194AF005131E7 /* FireStoreTestAppUITests.swift */; };
+		320A43BC2271B6F8005131E7 /* CCabRelayRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43BB2271B6F8005131E7 /* CCabRelayRequestViewController.swift */; };
+		320A43C02271B8EA005131E7 /* CCabCancelRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43BD2271B8E9005131E7 /* CCabCancelRequestViewController.swift */; };
+		320A43C12271B8EA005131E7 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 320A43BE2271B8E9005131E7 /* Podfile */; };
+		320A43C22271B8EA005131E7 /* CCabRetryRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43BF2271B8EA005131E7 /* CCabRetryRequestViewController.swift */; };
+		320A43C42271BAC8005131E7 /* CCabListLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43C32271BAC8005131E7 /* CCabListLoader.swift */; };
+		320A43C82271D8F3005131E7 /* OnRideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43C72271D8F3005131E7 /* OnRideViewController.swift */; };
+		320A43CA2272E6BF005131E7 /* CityCabAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43C92272E6BF005131E7 /* CityCabAPI.swift */; };
+		320A43CD2272EB22005131E7 /* NetworkErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43CB2272EB21005131E7 /* NetworkErrorHandler.swift */; };
+		320A43CE2272EB22005131E7 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43CC2272EB22005131E7 /* ErrorResponse.swift */; };
+		320A43D02272EB87005131E7 /* RideResponseCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43CF2272EB87005131E7 /* RideResponseCode.swift */; };
+		320A43D22272EC6B005131E7 /* LocalizationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43D12272EC6B005131E7 /* LocalizationHelper.swift */; };
+		320A43D42272FFB0005131E7 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43D32272FFB0005131E7 /* Utility.swift */; };
+		320A43D6227301CC005131E7 /* CCabUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43D5227301CC005131E7 /* CCabUtilities.swift */; };
+		320A43DA2276DC1F005131E7 /* CCabBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43D92276DC1F005131E7 /* CCabBaseViewController.swift */; };
+		320A43DC2276FDB1005131E7 /* CCabConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43DB2276FDB1005131E7 /* CCabConstants.swift */; };
+		320A43DE2277132D005131E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 320A43DD2277132D005131E7 /* GoogleService-Info.plist */; };
+		320A43E022773434005131E7 /* CCabLambaInvokManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320A43DF22773433005131E7 /* CCabLambaInvokManager.swift */; };
+		6EA89FE6B87B7A63E67F9781 /* Pods_FireStoreTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216D7122505E2D011B3E9664 /* Pods_FireStoreTestApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		216D7122505E2D011B3E9664 /* Pods_FireStoreTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireStoreTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		320A4385227194AD005131E7 /* FireStoreTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireStoreTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		320A4388227194AD005131E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		320A438A227194AD005131E7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +68,27 @@
 		320A43A7227194AF005131E7 /* FireStoreTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FireStoreTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		320A43AB227194AF005131E7 /* FireStoreTestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreTestAppUITests.swift; sourceTree = "<group>"; };
 		320A43AD227194AF005131E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		320A43BB2271B6F8005131E7 /* CCabRelayRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabRelayRequestViewController.swift; sourceTree = "<group>"; };
+		320A43BD2271B8E9005131E7 /* CCabCancelRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabCancelRequestViewController.swift; sourceTree = "<group>"; };
+		320A43BE2271B8E9005131E7 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		320A43BF2271B8EA005131E7 /* CCabRetryRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabRetryRequestViewController.swift; sourceTree = "<group>"; };
+		320A43C32271BAC8005131E7 /* CCabListLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabListLoader.swift; sourceTree = "<group>"; };
+		320A43C72271D8F3005131E7 /* OnRideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnRideViewController.swift; sourceTree = "<group>"; };
+		320A43C92272E6BF005131E7 /* CityCabAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCabAPI.swift; sourceTree = "<group>"; };
+		320A43CB2272EB21005131E7 /* NetworkErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkErrorHandler.swift; sourceTree = "<group>"; };
+		320A43CC2272EB22005131E7 /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		320A43CF2272EB87005131E7 /* RideResponseCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideResponseCode.swift; sourceTree = "<group>"; };
+		320A43D12272EC6B005131E7 /* LocalizationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationHelper.swift; sourceTree = "<group>"; };
+		320A43D32272FFB0005131E7 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		320A43D5227301CC005131E7 /* CCabUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabUtilities.swift; sourceTree = "<group>"; };
+		320A43D92276DC1F005131E7 /* CCabBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCabBaseViewController.swift; sourceTree = "<group>"; };
+		320A43DB2276FDB1005131E7 /* CCabConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabConstants.swift; sourceTree = "<group>"; };
+		320A43DD2277132D005131E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		320A43DF22773433005131E7 /* CCabLambaInvokManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CCabLambaInvokManager.swift; sourceTree = "<group>"; };
+		524580FE4AE33C661B8ADDE8 /* Pods_FireStoreTestAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireStoreTestAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		723C41849F636EC35BCA1908 /* Pods-FireStoreTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireStoreTestApp.release.xcconfig"; path = "Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp.release.xcconfig"; sourceTree = "<group>"; };
+		D333E232E8EC232C7DA6101A /* Pods-FireStoreTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireStoreTestApp.debug.xcconfig"; path = "Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DCDEC97D0F610FF2B3E35352 /* Pods_FireStoreTestAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireStoreTestAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EA89FE6B87B7A63E67F9781 /* Pods_FireStoreTestApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +124,8 @@
 				320A439F227194AF005131E7 /* FireStoreTestAppTests */,
 				320A43AA227194AF005131E7 /* FireStoreTestAppUITests */,
 				320A4386227194AD005131E7 /* Products */,
+				BF80AE3FC6EE2A46F670A69B /* Pods */,
+				AB976472B632DCA3166BCE79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,8 +142,25 @@
 		320A4387227194AD005131E7 /* FireStoreTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				320A43C92272E6BF005131E7 /* CityCabAPI.swift */,
+				320A43CF2272EB87005131E7 /* RideResponseCode.swift */,
+				320A43D12272EC6B005131E7 /* LocalizationHelper.swift */,
+				320A43DD2277132D005131E7 /* GoogleService-Info.plist */,
+				320A43D5227301CC005131E7 /* CCabUtilities.swift */,
+				320A43D32272FFB0005131E7 /* Utility.swift */,
+				320A43CC2272EB22005131E7 /* ErrorResponse.swift */,
+				320A43CB2272EB21005131E7 /* NetworkErrorHandler.swift */,
 				320A4388227194AD005131E7 /* AppDelegate.swift */,
+				320A43DB2276FDB1005131E7 /* CCabConstants.swift */,
+				320A43C32271BAC8005131E7 /* CCabListLoader.swift */,
+				320A43DF22773433005131E7 /* CCabLambaInvokManager.swift */,
+				320A43BD2271B8E9005131E7 /* CCabCancelRequestViewController.swift */,
+				320A43BF2271B8EA005131E7 /* CCabRetryRequestViewController.swift */,
+				320A43BB2271B6F8005131E7 /* CCabRelayRequestViewController.swift */,
+				320A43D92276DC1F005131E7 /* CCabBaseViewController.swift */,
+				320A43BE2271B8E9005131E7 /* Podfile */,
 				320A438A227194AD005131E7 /* ViewController.swift */,
+				320A43C72271D8F3005131E7 /* OnRideViewController.swift */,
 				320A438C227194AD005131E7 /* Main.storyboard */,
 				320A4392227194AF005131E7 /* Assets.xcassets */,
 				320A4394227194AF005131E7 /* LaunchScreen.storyboard */,
@@ -128,6 +188,25 @@
 			path = FireStoreTestAppUITests;
 			sourceTree = "<group>";
 		};
+		AB976472B632DCA3166BCE79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				216D7122505E2D011B3E9664 /* Pods_FireStoreTestApp.framework */,
+				524580FE4AE33C661B8ADDE8 /* Pods_FireStoreTestAppTests.framework */,
+				DCDEC97D0F610FF2B3E35352 /* Pods_FireStoreTestAppUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF80AE3FC6EE2A46F670A69B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D333E232E8EC232C7DA6101A /* Pods-FireStoreTestApp.debug.xcconfig */,
+				723C41849F636EC35BCA1908 /* Pods-FireStoreTestApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +214,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 320A43B0227194AF005131E7 /* Build configuration list for PBXNativeTarget "FireStoreTestApp" */;
 			buildPhases = (
+				ED49BF51A306DFA5C13F4AF1 /* [CP] Check Pods Manifest.lock */,
 				320A4381227194AD005131E7 /* Sources */,
 				320A4382227194AD005131E7 /* Frameworks */,
 				320A4383227194AD005131E7 /* Resources */,
+				DE30D1F7F1F3272CA10AB1B5 /* [CP] Embed Pods Frameworks */,
+				2EF9FB04D78D0B4E63A0D3A0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,9 +314,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				320A43C12271B8EA005131E7 /* Podfile in Resources */,
 				320A4396227194AF005131E7 /* LaunchScreen.storyboard in Resources */,
 				320A4393227194AF005131E7 /* Assets.xcassets in Resources */,
 				320A438E227194AD005131E7 /* Main.storyboard in Resources */,
+				320A43DE2277132D005131E7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,14 +338,138 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2EF9FB04D78D0B4E63A0D3A0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE30D1F7F1F3272CA10AB1B5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSAppSync/AWSAppSync.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSLambda/AWSLambda.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Pulsator/Pulsator.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSAppSync.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSLambda.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pulsator.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FireStoreTestApp/Pods-FireStoreTestApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED49BF51A306DFA5C13F4AF1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FireStoreTestApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		320A4381227194AD005131E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				320A43D42272FFB0005131E7 /* Utility.swift in Sources */,
+				320A43D6227301CC005131E7 /* CCabUtilities.swift in Sources */,
+				320A43D22272EC6B005131E7 /* LocalizationHelper.swift in Sources */,
+				320A43DC2276FDB1005131E7 /* CCabConstants.swift in Sources */,
+				320A43CD2272EB22005131E7 /* NetworkErrorHandler.swift in Sources */,
 				320A438B227194AD005131E7 /* ViewController.swift in Sources */,
+				320A43C42271BAC8005131E7 /* CCabListLoader.swift in Sources */,
+				320A43BC2271B6F8005131E7 /* CCabRelayRequestViewController.swift in Sources */,
+				320A43C22271B8EA005131E7 /* CCabRetryRequestViewController.swift in Sources */,
+				320A43C02271B8EA005131E7 /* CCabCancelRequestViewController.swift in Sources */,
+				320A43E022773434005131E7 /* CCabLambaInvokManager.swift in Sources */,
+				320A43C82271D8F3005131E7 /* OnRideViewController.swift in Sources */,
+				320A43DA2276DC1F005131E7 /* CCabBaseViewController.swift in Sources */,
 				320A4389227194AD005131E7 /* AppDelegate.swift in Sources */,
+				320A43CE2272EB22005131E7 /* ErrorResponse.swift in Sources */,
 				320A4391227194AD005131E7 /* FireStoreTestApp.xcdatamodeld in Sources */,
+				320A43CA2272E6BF005131E7 /* CityCabAPI.swift in Sources */,
+				320A43D02272EB87005131E7 /* RideResponseCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +582,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -428,23 +637,27 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		320A43B1227194AF005131E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D333E232E8EC232C7DA6101A /* Pods-FireStoreTestApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48N23SU8RK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 8D7XASAAEL;
 				INFOPLIST_FILE = FireStoreTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.RohitKr.FireStoreTestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.citybuskw.pax.qc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.citybuskw.pax.qc";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -452,17 +665,20 @@
 		};
 		320A43B2227194AF005131E7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 723C41849F636EC35BCA1908 /* Pods-FireStoreTestApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 48N23SU8RK;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 8D7XASAAEL;
 				INFOPLIST_FILE = FireStoreTestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.RohitKr.FireStoreTestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.citybuskw.pax.qc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.citybuskw.pax.qc";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

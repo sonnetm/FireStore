@@ -8,15 +8,32 @@
 
 import UIKit
 import CoreData
+import Firebase
+import GoogleMaps
+import GooglePlaces
+import AWSAppSync
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
+  let appSyncPoolId =  "ap-south-1:769ee023-c15e-47a3-8812-8e6cd53b7347"//LambdaInvokeData().appSyncPoolId
+  
+  let appSyncLocalDbName =  LambdaInvokeData().appSyncLocalDbName
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    
+    // [START default_firestore]
+    FirebaseApp.configure()
+    
+    let db = Firestore.firestore()
+    // [END default_firestore]
+    print(db) // silence warning
+    GMSServices.provideAPIKey("AIzaSyAw5egCQ9tIJFuqsEGxeaYOV4eVbrg2b-k") //("AIzaSyDLlskLqvF8VoYCTs_j5PCMkW5CiPR-hvU")
+    GMSPlacesClient.provideAPIKey("AIzaSyAw5egCQ9tIJFuqsEGxeaYOV4eVbrg2b-k") //("AIzaSyDLlskLqvF8VoYCTs_j5PCMkW5CiPR-hvU")
+    self.configureAppSync()
     return true
   }
 
@@ -91,3 +108,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - APPSync
+extension AppDelegate
+{
+  func configureAppSync() {
+    do {
+      // initialize the AppSync client configuration configuration
+      let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .APSouth1,
+                                                              identityPoolId: appSyncPoolId)
+      let configuration = AWSServiceConfiguration(region: .APSouth1, credentialsProvider: credentialsProvider)
+      
+      AWSServiceManager.default().defaultServiceConfiguration = configuration
+    } catch {
+      print("Error initializing AppSync client. \(error)")
+    }
+  }
+}

@@ -1,0 +1,89 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+abstract_target 'vanpool' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+  
+  pod 'CountryPickerView'
+  pod 'Alamofire', '~> 4.7'
+  pod 'AlamofireNetworkActivityLogger', '~> 2.3'
+  pod 'ObjectMapper', '~> 3.4'
+  pod 'AlamofireObjectMapper', '~> 5.2.0'
+  pod 'GoogleMaps','~> 2.7'
+  pod 'GooglePlaces','~> 2.7'
+  pod 'FBSDKCoreKit', '~> 4.34'
+  pod 'FBSDKLoginKit', '~> 4.34'
+  pod 'FBSDKShareKit', '~> 4.34'
+  pod 'Firebase/Core'
+  pod 'Firebase/RemoteConfig'
+  pod 'FirebaseDynamicLinks'
+  pod 'FirebaseDatabase'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Performance'
+  pod 'Fabric', '~> 1.7.2'
+  pod 'Crashlytics', '~> 3.10'
+  pod 'SDWebImage', '~> 4.4.0'
+  pod 'lottie-ios', '~> 2.5'
+  #pod 'Siren'
+  pod 'SkyFloatingLabelTextField'
+  pod 'ZDCChat'
+  pod 'SideMenu'
+  pod 'Pulsator', '~> 0.5.1'
+  pod 'CountryPickerView'
+  pod 'IQKeyboardManagerSwift'
+  pod 'AWSAppSync'
+  pod 'AWSAutoScaling'
+  pod 'AWSCloudWatch'
+  pod 'AWSCognito'
+  pod 'AWSCognitoIdentityProvider'
+  pod 'AWSDynamoDB'
+  pod 'AWSEC2'
+  pod 'AWSElasticLoadBalancing'
+  pod 'AWSKinesis'
+  pod 'AWSLambda'
+  pod 'AWSMachineLearning'
+  pod 'AWSMobileAnalytics'
+  pod 'AWSS3'
+  pod 'AWSSES'
+  pod 'AWSSimpleDB'
+  pod 'AWSSNS'
+  pod 'AWSSQS'
+  pod 'AppsFlyerFramework'
+  
+  target 'vanpool-passenger-ios'
+  target 'vanpool-passenger-ios-uat'
+  target 'vanpool-passenger-ios-prod'
+  target 'gocity-cab-dev'
+  target 'gocity-cab-uat'
+  target 'gocity-cab-qc'
+  target 'gocity-pax-prod'
+
+  # target 'vanpool-passenger-iosTests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
+
+  # target 'vanpool-passenger-iosUITests' do
+  #   inherit! :search_paths
+  #   # Pods for testing
+  # end
+
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config |
+    config.build_settings['PROVISIONING_PROFILE_SPECIFIER'] = ''
+  end
+  installer.pods_project.targets.each do |target|
+    if ['Pulsator','SideMenu','SkyFloatingLabelTextField'].include? target.name
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = '4.0'
+      end
+    end
+  end
+end
+
+
+
