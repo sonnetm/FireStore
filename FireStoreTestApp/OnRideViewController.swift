@@ -12,7 +12,39 @@ import Reachability
 import GoogleMaps
 import GooglePlaces
 
-
+enum FireBaseRideStatus: String {
+  case none = "NONE"
+  case new = "NEW"
+  case bookingSent = "BOOKING_SENT"
+  case accepted = "BOOKING_ACCEPTED"
+  case cancelled = "CANCELLED"
+  case driverArrived = "ARRIVED"
+  case onride = "ON_RIDE"
+  case endRide = "END_RIDE"
+  case rideCompleted = "RIDE_COMPLETED"
+  var statusValue: String {
+    switch self {
+    case .none:
+      return "NONE"
+    case .new:
+      return "NEW"
+    case .bookingSent:
+      return "BOOKING SENT"
+    case .accepted:
+      return "BOOKING ACCEPTED"
+    case .cancelled:
+      return "CANCELLED"
+    case .driverArrived:
+      return "ARRIVED"
+    case .onride:
+      return "ON RIDE"
+    case .endRide:
+      return "END RIDE"
+    case .rideCompleted:
+      return "RIDE COMPLETED"
+    }
+  }
+}
 class OnRideViewController: CCabBaseViewController {
   @IBOutlet weak var mapView: GMSMapView!
   var db: Firestore!
@@ -167,7 +199,7 @@ class OnRideViewController: CCabBaseViewController {
             else if(rideStatus == AppSyncRideStatus.onride.statusValue) {
               self.cancelRideButton.isHidden = true
             }
-            self.navigationItem.title = rideStatus
+            self.navigationItem.title = FireBaseRideStatus(rawValue: rideStatus)?.statusValue
             self.coordinatesArray.append(["latitude":self.latitudeLabel.text ?? "000","longitude":self.longitudeLabel.text ?? "000","rideStatus": self.rideStatus])
           }
         }

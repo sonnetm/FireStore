@@ -21,9 +21,14 @@ class ViewController: CCabBaseViewController, UITextFieldDelegate {
     Firestore.firestore().settings = settings
     // [END setup]
     db = Firestore.firestore()
-    self.setBackButtonNavigationBar(title: "Book Cab", isBackButtonRequired: false, controller: self)
+    self.setBackButtonNavigationBar(title: "Book A Cab", isBackButtonRequired: false, controller: self)
     self.addShadow()
     // Do any additional setup after loading the view, typically from a nib.
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    rideIdTextField.text = ""
   }
   
 // Add Data is Used to create a document without even the name specified.
