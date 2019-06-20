@@ -8,7 +8,8 @@
 
 import UIKit
 import Firebase
- var globalRideReferenceId = "000112233445566778899"
+
+var globalRideReferenceId = "000112233445566778899"
 class ViewController: CCabBaseViewController, UITextFieldDelegate {
   
   var db: Firestore!
@@ -23,12 +24,18 @@ class ViewController: CCabBaseViewController, UITextFieldDelegate {
     db = Firestore.firestore()
     self.setBackButtonNavigationBar(title: "Book A Cab", isBackButtonRequired: false, controller: self)
     self.addShadow()
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+    self.view.addGestureRecognizer(tapGesture)
     // Do any additional setup after loading the view, typically from a nib.
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     rideIdTextField.text = ""
+  }
+  
+  @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+    rideIdTextField.resignFirstResponder()
   }
   
 // Add Data is Used to create a document without even the name specified.

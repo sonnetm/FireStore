@@ -86,6 +86,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dk-5w-6kE">
+                                <rect key="frame" x="150" y="283.5" width="75" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwN-mw-ugB" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,16 +201,19 @@
                             <constraint firstItem="4yB-af-ALm" firstAttribute="leading" secondItem="Z6g-3Q-d4c" secondAttribute="leading" constant="24" id="LFp-0a-qSd"/>
                             <constraint firstItem="fwN-mw-ugB" firstAttribute="leading" secondItem="Z6g-3Q-d4c" secondAttribute="leading" id="MW5-26-2nr"/>
                             <constraint firstAttribute="bottom" secondItem="fwN-mw-ugB" secondAttribute="bottom" id="Msn-c8-IrT"/>
+                            <constraint firstItem="1Dk-5w-6kE" firstAttribute="centerY" secondItem="Z6g-3Q-d4c" secondAttribute="centerY" constant="-50" id="OMt-K1-HFm"/>
                             <constraint firstItem="HSn-I5-3Ig" firstAttribute="centerX" secondItem="fXS-kc-4tb" secondAttribute="centerX" id="QQD-1p-vNR"/>
                             <constraint firstItem="HSn-I5-3Ig" firstAttribute="leading" secondItem="Z6g-3Q-d4c" secondAttribute="leading" constant="24" id="c7g-db-b5q"/>
                             <constraint firstItem="fwN-mw-ugB" firstAttribute="top" secondItem="Z6g-3Q-d4c" secondAttribute="top" id="lHl-GE-eRp"/>
                             <constraint firstItem="Z6g-3Q-d4c" firstAttribute="trailing" secondItem="fwN-mw-ugB" secondAttribute="trailing" id="m5J-fg-CK5"/>
+                            <constraint firstItem="1Dk-5w-6kE" firstAttribute="centerX" secondItem="Z6g-3Q-d4c" secondAttribute="centerX" id="vO4-5P-TP1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Z6g-3Q-d4c"/>
                     </view>
                     <connections>
                         <outlet property="cancelRideButton" destination="4yB-af-ALm" id="M2y-ZI-6xf"/>
                         <outlet property="latitudeLabel" destination="hsa-Gf-bUc" id="S9o-5R-YDQ"/>
+                        <outlet property="loadingLabel" destination="1Dk-5w-6kE" id="ZKz-uf-MbI"/>
                         <outlet property="longitudeLabel" destination="3SG-7Z-Jyr" id="mge-6c-p8H"/>
                         <outlet property="mapView" destination="fwN-mw-ugB" id="Gbj-Va-igK"/>
                     </connections>

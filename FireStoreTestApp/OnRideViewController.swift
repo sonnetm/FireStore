@@ -47,6 +47,7 @@ enum FireBaseRideStatus: String {
 }
 class OnRideViewController: CCabBaseViewController {
   @IBOutlet weak var mapView: GMSMapView!
+  @IBOutlet weak var loadingLabel: UILabel!
   var db: Firestore!
   var vehicleId = "000"
   var rideStatus = AppSyncRideStatus.accepted.statusValue
@@ -74,6 +75,8 @@ class OnRideViewController: CCabBaseViewController {
     else if(rideStatus == AppSyncRideStatus.onride.statusValue) {
       self.cancelRideButton.isHidden = true
     }
+    loadingLabel.isHidden = false
+    mapView.isHidden = true
     setupMarkers()
   }
   
@@ -221,6 +224,8 @@ class OnRideViewController: CCabBaseViewController {
             print("Document data was empty.")
             return
           }
+          self.loadingLabel.isHidden = true
+          self.mapView.isHidden = false
           print("Current data: \(data)")
           if let latitude: String = data["latitude"] as? String, let longitude: String = data["longitude"] as? String {
             self.coordinatesArray.append(["latitude":latitude,"longitude":longitude,"rideStatus": self.rideStatus])

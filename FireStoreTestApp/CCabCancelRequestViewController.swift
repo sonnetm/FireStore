@@ -39,7 +39,7 @@ class CCabCancelRequestViewController: CCabBaseViewController, CLLocationManager
 		self.cancelRequestButton.titleLabel?.textColor = UIColor.white
 	}
 	func setupData() {
-		self.checkingNearbyLabel.text = "Checking nearBy Rides"
+		self.checkingNearbyLabel.text = "Finding your ride"
 		self.cancelRequestButton.setTitle("Searching Rides...", for: .normal)
 	}
 

@@ -21,7 +21,6 @@ target 'FireStoreTestApp' do
   pod 'AWSCognitoIdentityProvider'
   pod 'AWSLambda'
  
- 
 end
 post_install do |installer|
   installer.pods_project.build_configurations.each do |config |
