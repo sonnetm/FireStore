@@ -11,9 +11,9 @@ import Firebase
 
 var globalRideReferenceId = "000112233445566778899"
 class ViewController: CCabBaseViewController, UITextFieldDelegate {
-  
   var db: Firestore!
   @IBOutlet weak var rideIdTextField: UITextField!
+  @IBOutlet weak var createButtonBottomConstraint: NSLayoutConstraint!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,7 +26,7 @@ class ViewController: CCabBaseViewController, UITextFieldDelegate {
     self.addShadow()
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
     self.view.addGestureRecognizer(tapGesture)
-    // Do any additional setup after loading the view, typically from a nib.
+    addKeyBoardNotification()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -34,10 +34,17 @@ class ViewController: CCabBaseViewController, UITextFieldDelegate {
     rideIdTextField.text = ""
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    rideIdTextField.resignFirstResponder()
+  }
+  
   @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
     rideIdTextField.resignFirstResponder()
   }
   
+  deinit {
+    removeKeyBoardNotification()
+  }
 // Add Data is Used to create a document without even the name specified.
 //  private func addDocumentWithoutNameSpecifiedFirst() {
 //    // Add a new document with a generated ID
@@ -152,4 +159,50 @@ class ViewController: CCabBaseViewController, UITextFieldDelegate {
     }
   }
 }
+
+// MARK: - Keyboard Actions
+extension ViewController {
+  
+  @objc func keyboardWillHide(notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+      adjustingHeight(show: false, notification: notification, keyboardSize: keyboardSize)
+    }
+  }
+  
+  @objc func keyboardWillShow(notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+      adjustingHeight(show: true, notification: notification, keyboardSize: keyboardSize)
+    }
+  }
+  
+  func adjustingHeight(show: Bool, notification: NSNotification, keyboardSize: CGRect) {
+    let changeInHeight = keyboardSize.height
+    if show {
+      if self.createButtonBottomConstraint.constant == 24 {
+        self.createButtonBottomConstraint.constant += changeInHeight
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+          self.view.layoutIfNeeded()
+        })
+      }
+    } else {
+      if self.createButtonBottomConstraint.constant != 24 {
+        self.createButtonBottomConstraint.constant = 24
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+          self.view.layoutIfNeeded()
+        })
+      }
+    }
+  }
+  
+  final func addKeyBoardNotification() {
+    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  final func removeKeyBoardNotification() {
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+}
+
 

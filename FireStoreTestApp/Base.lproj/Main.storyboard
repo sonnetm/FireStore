@@ -71,6 +71,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6eu-4B-RvH"/>
                     <connections>
+                        <outlet property="createButtonBottomConstraint" destination="F5F-gS-8D7" id="VOd-Hd-B9j"/>
                         <outlet property="rideIdTextField" destination="sqk-Xw-WaO" id="m0G-cX-krl"/>
                     </connections>
                 </viewController>
